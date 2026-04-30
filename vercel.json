@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://production-scrapper-api.onrender.com/tenders/:path*"
-    }
-  ]
-}

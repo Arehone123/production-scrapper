@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const API_URL = "/api/tenders/";
+const API_URL = "https://production-scrapper-api.onrender.com/tenders";
 
 function App() {
   const [tenders, setTenders] = useState([]);
@@ -17,21 +17,27 @@ function App() {
   const PAGE_SIZE = 25;
 
   useEffect(() => {
-    async function fetchTenders() {
-      try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Failed to fetch tenders");
-        const data = await response.json();
-        setTenders(data.tenders || []);
-        setTotal(data.total || 0);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  async function fetchTenders() {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) throw new Error("Failed to fetch tenders");
+      
+      const result = await response.json();
+      
+      // Update: Your API uses "data" instead of "tenders"
+      if (result.status === "success") {
+        setTenders(result.data || []); 
+        setTotal(result.total || 0);
       }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    fetchTenders();
+  }
+  fetchTenders();
   }, []);
+  
 
   const provinces = useMemo(() => ["All", ...new Set(tenders.map(t => t.province).filter(Boolean))].sort(), [tenders]);
   const categories = useMemo(() => ["All", ...new Set(tenders.map(t => t.category).filter(Boolean))].sort(), [tenders]);
