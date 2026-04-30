@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const API_URL = "http://54.242.59.40:8000/tenders";
+const API_URL = "/api/tenders/";
 
 function App() {
   const [tenders, setTenders] = useState([]);
