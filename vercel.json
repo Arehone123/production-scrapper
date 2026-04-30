@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "http://54.242.59.40:8000/:path*"
+      "destination": "https://production-scrapper-api.onrender.com/tenders/:path*"
     }
   ]
 }
